@@ -96,7 +96,7 @@ export function Admin() {
     return (
       <Empty
         icon={AlertCircle}
-        title="This corner is for the Eat.one1 team"
+        title="This corner is for the eat.one1 team"
         description="Your customer account does not have admin access."
         action="My account"
         to="/account"
@@ -114,7 +114,7 @@ export function Admin() {
     <section className="admin-layout">
       <aside className="admin-sidebar">
         <span className="eyebrow">BEHIND THE GOODNESS</span>
-        <h2>Eat.one1 studio.</h2>
+        <h2>eat.one1 studio.</h2>
         <p>A little care for your store.</p>
         {[
           [LayoutDashboard, "overview", "Overview"],
@@ -981,6 +981,8 @@ function SettingsForm() {
             {field("businessAddress", "Business address")}
             {field("whatsapp", "WhatsApp (country code + digits)")}
             {field("contactEmail", "Support email")}
+            {field("instagram", "Instagram URL")}
+            {field("website", "Website URL")}
             {field("fssai", "FSSAI registration / licence number")}
             {field("announcement", "Announcement bar")}
           </div>

@@ -84,7 +84,7 @@ export function Home() {
           <span>01 / A BETTER KIND OF SNACK BREAK</span>
         </div>
       </section>
-      <div className="ticker" aria-label="Eat.one1 values">
+      <div className="ticker" aria-label="eat.one1 values">
         <div>
           {Array.from({ length: 4 }, (_, i) => (
             <React.Fragment key={i}>
@@ -99,7 +99,7 @@ export function Home() {
         </div>
       </div>
       <section className="intro section">
-        <span className="eyebrow">HELLO, WE’RE EAT.ONE1</span>
+        <span className="eyebrow">HELLO, WE’RE eat.one1</span>
         <h2>
           Good snacking is a feeling.
           <br />
@@ -157,7 +157,7 @@ export function Home() {
                 <img
                   loading="lazy"
                   src={c.image}
-                  alt={c.name + " from Eat.one1’s kitchen"}
+                  alt={c.name + " from eat.one1’s kitchen"}
                 />
               </div>
               <div className="category-label">
@@ -223,7 +223,7 @@ export function Home() {
       </section>
       <section className="reviews section" aria-labelledby="reviews-heading">
         <div className="reviews-copy">
-          <span className="eyebrow">FROM THE EAT.ONE1 COMMUNITY</span>
+          <span className="eyebrow">FROM THE eat.one1 COMMUNITY</span>
           <h2 id="reviews-heading">
             Snack love,
             <br />
@@ -256,9 +256,9 @@ export function Home() {
         <figure className="review-highlight">
           <img
             src="/images/review-multi-nutrition-laddoo.png"
-            alt="Customer review of Eat.one1 Multi Nutrition Laddoo, showing a container of laddoos and a five-star recommendation"
+            alt="Customer review of eat.one1 Multi Nutrition Laddoo, showing a container of laddoos and a five-star recommendation"
           />
-          <figcaption>Shared from Eat.one1’s Instagram highlights.</figcaption>
+          <figcaption>Shared from eat.one1’s Instagram highlights.</figcaption>
         </figure>
       </section>
       <section className="ritual">
@@ -266,7 +266,7 @@ export function Home() {
           <img
             loading="lazy"
             src="/images/products/granola.png"
-            alt="A fresh bowl of Eat.one1 granola with oats, nuts, seeds and raisins"
+            alt="A fresh bowl of eat.one1 granola with oats, nuts, seeds and raisins"
           />
           <span>FROM OUR KITCHEN, WITH LOVE.</span>
         </div>
@@ -286,7 +286,7 @@ export function Home() {
             goodness.
           </p>
           <Link className="button" to="/our-story">
-            Get to know Eat.one1 <ArrowUpRight size={18} />
+            Get to know eat.one1 <ArrowUpRight size={18} />
           </Link>
         </div>
       </section>
@@ -381,7 +381,7 @@ export function Newsletter() {
               checked={consent}
               onChange={(e) => setConsent(e.target.checked)}
             />
-            I’d like occasional Eat.one1 emails. Unsubscribe via WhatsApp
+            I’d like occasional eat.one1 emails. Unsubscribe via WhatsApp
             anytime.
           </label>
           {error && <p className="form-error">{error}</p>}
@@ -405,17 +405,17 @@ export function Story() {
       <section className="section story-layout">
         <img
           src="/images/products/multi-nutrition-ladoo.png"
-          alt="Multi Nutrition laddoos from Eat.one1’s kitchen"
+          alt="Multi Nutrition laddoos from eat.one1’s kitchen"
         />
         <div>
-          <span className="eyebrow">HI, WE’RE EAT.ONE1</span>
+          <span className="eyebrow">HI, WE’RE eat.one1</span>
           <h2>
             A little care.
             <br />
             In every <em>bite.</em>
           </h2>
           <p>
-            Eat.one1 started with a simple idea: make everyday snacking a little
+            eat.one1 started with a simple idea: make everyday snacking a little
             more thoughtful, and a whole lot more enjoyable.
           </p>
           <p>
@@ -477,7 +477,7 @@ export function Journal() {
           ],
         ].map(([title, text, image]) => (
           <article key={title}>
-            <img src={image} alt="From the Eat.one1 kitchen" loading="lazy" />
+            <img src={image} alt="From the eat.one1 kitchen" loading="lazy" />
             <span className="eyebrow">EVERYDAY GOODNESS</span>
             <h2>{title}</h2>
             <p>{text}</p>

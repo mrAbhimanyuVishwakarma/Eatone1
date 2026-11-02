@@ -149,10 +149,10 @@ export default function App() {
   }, [notice]);
   useEffect(() => {
     document.title = route.startsWith("/admin")
-      ? "Admin · Eat.one1"
+      ? "Admin · eat.one1"
       : route.startsWith("/shop")
-        ? "Shop our snacks · Eat.one1"
-        : "Eat.one1 — A little crunch. A lot of joy.";
+        ? "Shop our snacks · eat.one1"
+        : "eat.one1 — A little crunch. A lot of joy.";
   }, [route]);
   function add(p) {
     setCart((c) => {
@@ -210,8 +210,8 @@ export default function App() {
         </span>
       </div>
       <header>
-        <Link to="/" className="logo" aria-label="Eat.one1 home">
-          eat<span>one</span>
+        <Link to="/" className="logo" aria-label="eat.one1 home">
+          eat.<span>one1</span>
           <i>good food. good mood.</i>
         </Link>
         <nav aria-label="Main navigation">
@@ -409,7 +409,7 @@ function Shop() {
   return (
     <>
       <section className="page-banner">
-        <span className="eyebrow">THE EAT.ONE1 PANTRY</span>
+        <span className="eyebrow">THE eat.one1 PANTRY</span>
         <h1>
           Find your happy <em>snack.</em>
         </h1>
@@ -483,7 +483,7 @@ function Shop() {
                 ? "Try another category or search to find your happy snack."
                 : "The first fresh batch is on its way. Follow @eat.one1 for a peek behind the scenes."
             }
-            action="Meet Eat.one1"
+            action="Meet eat.one1"
             to="/our-story"
           />
         )}
@@ -596,7 +596,7 @@ function Product({ slug }) {
                   </dl>
                 ) : (
                   <p>
-                    Nutrition information will be added by the Eat.one1 team.
+                    Nutrition information will be added by the eat.one1 team.
                   </p>
                 )}
                 <small>See the pack for the latest information.</small>
@@ -804,7 +804,7 @@ function Policy({ kind }) {
       <h1>{item[0]}</h1>
       <p>{config?.settings[item[1]]}</p>
       <h2>Need a hand?</h2>
-      <p>Contact the Eat.one1 team with your order number.</p>
+      <p>Contact the eat.one1 team with your order number.</p>
       <a
         className="button"
         href={"https://wa.me/" + config?.settings.whatsapp}
@@ -824,7 +824,7 @@ function Footer() {
       <div className="footer-top">
         <div className="footer-brand">
           <Link className="logo" to="/">
-            eat<span>one</span>
+            eat.<span>one1</span>
             <i>good food. good mood.</i>
           </Link>
           <p>
@@ -834,8 +834,8 @@ function Footer() {
           </p>
           <div className="footer-social">
             <a
-              href="https://www.instagram.com/eat.one1/"
-              aria-label="Eat.one1 on Instagram"
+              href={s?.instagram || "https://www.instagram.com/eat.one1/"}
+              aria-label="eat.one1 on Instagram"
               target="_blank"
               rel="noreferrer"
             >
@@ -871,10 +871,15 @@ function Footer() {
             {s?.businessAddress || "Bangalore, India"}
           </p>
           <a href={"https://wa.me/" + (s?.whatsapp || "918618401072")}>
-            +91 86184 01072 <ArrowUpRight size={14} />
+            +91 861 840 1072 <ArrowUpRight size={14} />
           </a>
           {s?.contactEmail && (
             <a href={"mailto:" + s.contactEmail}>{s.contactEmail}</a>
+          )}
+          {s?.website && (
+            <a href={s.website} target="_blank" rel="noreferrer">
+              {s.website.replace(/^https?:\/\//, "").replace(/\/$/, "")}
+            </a>
           )}
           <p>Follow along @eat.one1</p>
           {s?.fssai && <p>FSSAI: {s.fssai}</p>}
@@ -882,7 +887,7 @@ function Footer() {
       </div>
       <div className="footer-bottom">
         <span>
-          © {new Date().getFullYear()} Eat.one1. Made with a little extra love.
+          © {new Date().getFullYear()} eat.one1. Made with a little extra love.
         </span>
         <div>
           <Link to="/policies/privacy">Privacy</Link>

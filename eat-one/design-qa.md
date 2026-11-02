@@ -1,10 +1,10 @@
-# Eat One local QA
+# eat.one1 local QA
 
 Reviewed 2 November 2026 using Playwright Chromium, desktop 1440 × 1000 and mobile 390 × 844.
 
 ## Result
 
-Local storefront and core commerce journey passed. This is an original Eat One adaptation, not a pixel-for-pixel copy of either reference.
+Local storefront and core commerce journey passed. This is an original eat.one1 adaptation, not a pixel-for-pixel copy of either reference.
 
 - Desktop/mobile homepage, empty pantry, category filters, account login, wishlist, story, journal, policy and admin-entry pages rendered.
 - Mobile viewport has no document-level horizontal overflow. Category cards intentionally scroll horizontally inside their row.

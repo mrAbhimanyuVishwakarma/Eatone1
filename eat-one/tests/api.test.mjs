@@ -58,7 +58,7 @@ before(async () => {
     );
     server.stdout.on("data", (b) => {
       output += b;
-      if (output.includes("Eat.one1 is running")) {
+      if (output.includes("eat.one1 is running")) {
         clearTimeout(timer);
         resolve();
       }

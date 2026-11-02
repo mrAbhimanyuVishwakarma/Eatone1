@@ -123,8 +123,9 @@ export async function initDB() {
         freeShippingAt: 799,
         instagram: "https://www.instagram.com/eat.one1/",
         whatsapp: "918618401072",
-        contactEmail: "",
-        businessName: "Eat.one1",
+        contactEmail: "eatonebusiness@gmail.com",
+        website: "https://eatone1.vercel.app/",
+        businessName: "eat.one1",
         businessAddress: "Bangalore, India",
         fssai: "",
         shippingPolicy:

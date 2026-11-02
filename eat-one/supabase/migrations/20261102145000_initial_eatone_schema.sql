@@ -1,4 +1,4 @@
--- Eat.one1 production schema.
+-- eat.one1 production schema.
 -- The application uses a protected server-side PostgreSQL connection. RLS is
 -- enabled without public policies so Supabase's anonymous API cannot expose
 -- customer, order, session, or catalog administration data.

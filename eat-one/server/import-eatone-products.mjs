@@ -27,7 +27,7 @@ const products = [
     ingredients:
       "Rolled oats, sunflower seeds, pumpkin seeds, watermelon seeds, flax seeds, almonds, walnuts, black raisins, honey, cinnamon powder, chia seeds.",
     allergens:
-      "Contains almonds and walnuts. Contains honey. Please ask Eat.one1 about possible cross-contamination before ordering.",
+      "Contains almonds and walnuts. Contains honey. Please ask eat.one1 about possible cross-contamination before ordering.",
     benefits:
       "Homemade in small batches\nMade with oats, seeds and nuts\nEnjoy with milk, curd or yoghurt",
     featured: 1,
@@ -42,7 +42,7 @@ const products = [
     ingredients:
       "Flax seeds, pumpkin seeds, black sesame seeds, white sesame seeds, dates.",
     allergens:
-      "Contains sesame seeds. Please ask Eat.one1 about possible cross-contamination before ordering.",
+      "Contains sesame seeds. Please ask eat.one1 about possible cross-contamination before ordering.",
     benefits:
       "Naturally sweetened with dates\nMade with flax, pumpkin and sesame seeds",
     featured: 1,
@@ -57,7 +57,7 @@ const products = [
     ingredients:
       "Aliv seeds, flax seeds, black sesame seeds, pumpkin seeds, watermelon seeds, sunflower seeds, fenugreek seeds, makhana, almonds, walnuts, dates, cardamom powder, ginger powder.",
     allergens:
-      "Contains almonds, walnuts and sesame seeds. Please ask Eat.one1 about possible cross-contamination before ordering.",
+      "Contains almonds, walnuts and sesame seeds. Please ask eat.one1 about possible cross-contamination before ordering.",
     benefits:
       "Approximately 33–35 pieces per 500 g pack\nNo refined sugar listed in the catalog",
     featured: 1,
@@ -72,7 +72,7 @@ const products = [
     ingredients:
       "Brazil nuts, flax seeds, pumpkin seeds, sunflower seeds, white sesame seeds, watermelon seeds, almonds, walnuts, makhana (fox nuts), aliv (garden cress) seeds, dates, cardamom powder, dry ginger powder.",
     allergens:
-      "Contains Brazil nuts, almonds, walnuts and sesame seeds. Please ask Eat.one1 about possible cross-contamination before ordering.",
+      "Contains Brazil nuts, almonds, walnuts and sesame seeds. Please ask eat.one1 about possible cross-contamination before ordering.",
     benefits:
       "No added sugar or jaggery listed\nNo preservatives listed\nHandcrafted in small batches",
     featured: 0,
@@ -81,15 +81,15 @@ const products = [
     name: "Hair Growth Ladoos",
     slug: "hair-growth-ladoos",
     description:
-      "A seed-, nut- and date-based ladoo blend sold by Eat.one1 under its original catalog name.",
+      "A seed-, nut- and date-based ladoo blend sold by eat.one1 under its original catalog name.",
     price: 79900,
     image: "/images/products/hair-growth-ladoo.png",
     ingredients:
       "Aliv seeds (garden cress seeds), flax seeds, white sesame seeds, pumpkin seeds, sunflower seeds, watermelon seeds, fenugreek seeds, dates, ghee, almonds, walnuts, edible gum (gond), cardamom powder, dry ginger powder.",
     allergens:
-      "Contains milk (ghee), almonds, walnuts and sesame seeds. Please ask Eat.one1 about possible cross-contamination before ordering.",
+      "Contains milk (ghee), almonds, walnuts and sesame seeds. Please ask eat.one1 about possible cross-contamination before ordering.",
     benefits:
-      "Made with seeds, dates and nuts\nOriginal Eat.one1 catalog recipe",
+      "Made with seeds, dates and nuts\nOriginal eat.one1 catalog recipe",
     featured: 0,
   },
   {
@@ -102,7 +102,7 @@ const products = [
     ingredients:
       "Cashews, almonds, flax seeds, sunflower seeds, pumpkin seeds, watermelon seeds, walnuts, pistachios, sesame seeds, unsweetened cocoa powder, dates, whole hazelnuts.",
     allergens:
-      "Contains cashews, almonds, walnuts, pistachios, hazelnuts and sesame seeds. Please ask Eat.one1 about possible cross-contamination before ordering.",
+      "Contains cashews, almonds, walnuts, pistachios, hazelnuts and sesame seeds. Please ask eat.one1 about possible cross-contamination before ordering.",
     benefits: "Unsweetened cocoa powder\nNaturally sweetened with dates",
     featured: 0,
   },
@@ -110,7 +110,7 @@ const products = [
     name: "Gond-Poppy seeds Ladoo ( Post partum recommended)",
     slug: "gond-poppy-seeds-ladoo",
     description:
-      "A traditional gond, poppy-seed, nut and date ladoo sold under Eat.one1’s original catalog name.",
+      "A traditional gond, poppy-seed, nut and date ladoo sold under eat.one1’s original catalog name.",
     price: 89900,
     image: "/images/products/gond-poppy-ladoo.png",
     ingredients:
@@ -131,7 +131,7 @@ const products = [
     ingredients:
       "Flax seeds, pumpkin seeds, watermelon seeds, sunflower seeds, almonds, cashews, dates, ghee.",
     allergens:
-      "Contains milk (ghee), almonds and cashews. Please ask Eat.one1 about possible cross-contamination before ordering.",
+      "Contains milk (ghee), almonds and cashews. Please ask eat.one1 about possible cross-contamination before ordering.",
     benefits: "Made with premium ingredients\nMixed seeds, nuts and dates",
     featured: 0,
   },
@@ -139,7 +139,7 @@ const products = [
     name: "Multi Nutrition ladoo with additional dry fruits ( PCOD/ PCOS recommended)",
     slug: "multi-nutrition-ladoo-additional-dry-fruits",
     description:
-      "A premium mixed-seed and dry-fruit ladoo sold under Eat.one1’s original catalog name.",
+      "A premium mixed-seed and dry-fruit ladoo sold under eat.one1’s original catalog name.",
     price: 79900,
     image: "/images/products/pcod-multi-nutrition-ladoo.png",
     ingredients:
@@ -153,7 +153,7 @@ const products = [
     name: "Biotin Powder",
     slug: "biotin-powder",
     description:
-      "A finely ground seed, nut, dry-fruit and makhana blend from the Eat.one1 catalog.",
+      "A finely ground seed, nut, dry-fruit and makhana blend from the eat.one1 catalog.",
     category: "Nuts & seeds",
     genre: "Breakfast",
     price: 89900,
@@ -161,9 +161,9 @@ const products = [
     ingredients:
       "Pumpkin seeds, watermelon seeds, flax seeds, sunflower seeds, almonds, cashews, walnuts, pistachios, aliv seeds, sesame seeds, dry dates, makhana.",
     allergens:
-      "Contains almonds, cashews, walnuts, pistachios and sesame seeds. Please ask Eat.one1 about possible cross-contamination before ordering.",
+      "Contains almonds, cashews, walnuts, pistachios and sesame seeds. Please ask eat.one1 about possible cross-contamination before ordering.",
     benefits:
-      "Finely ground seed and nut blend\nAdd only as directed by Eat.one1",
+      "Finely ground seed and nut blend\nAdd only as directed by eat.one1",
     featured: 0,
   },
 ];
@@ -212,10 +212,14 @@ for (const item of products) {
 const [setting] = await query("SELECT value FROM settings WHERE id='store'");
 if (setting) {
   const value = JSON.parse(setting.value);
-  value.businessName = "Eat.one1";
+  value.businessName = "eat.one1";
+  value.instagram = "https://www.instagram.com/eat.one1/";
+  value.whatsapp = "918618401072";
+  value.contactEmail = "eatonebusiness@gmail.com";
+  value.website = "https://eatone1.vercel.app/";
   await query("UPDATE settings SET value=? WHERE id='store'", [
     JSON.stringify(value),
   ]);
 }
-console.log(`Imported ${products.length} Eat.one1 products.`);
+console.log(`Imported ${products.length} eat.one1 products.`);
 await closeDB();

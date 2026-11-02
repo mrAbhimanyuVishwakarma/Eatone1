@@ -1,18 +1,18 @@
-# Eat.one1 Account Transfer Guide
+# eat.one1 Account Transfer Guide
 
-This runbook explains how to move the Eat.one1 project to a different owner or business account without losing source code, deployments, customer data, product images, orders, or payment access.
+This runbook explains how to move the eat.one1 project to a different owner or business account without losing source code, deployments, customer data, product images, orders, or payment access.
 
-Use an Eat.one1-controlled business email for the destination accounts. Do not send passwords, database passwords, private API keys, recovery codes, or `.env` files to the new owner. Add the new owner through each service's team/member controls instead.
+Use an eat.one1-controlled business email for the destination accounts. Do not send passwords, database passwords, private API keys, recovery codes, or `.env` files to the new owner. Add the new owner through each service's team/member controls instead.
 
 ## Services covered
 
-| Service | What it owns | Preferred transfer method |
-| --- | --- | --- |
-| GitHub | Source code and history | Transfer the repository to the new user or organization |
-| Vercel | Website deployments and domains | Transfer the project to the destination Vercel team |
-| Supabase | Database, authentication, storage and server functions | Transfer the project to the destination Supabase organization |
-| Razorpay | Payments, settlements and merchant KYC | Change team access; contact Razorpay if the legal owner changes |
-| Domain registrar/DNS | Public domain and DNS records | Transfer the domain or change the registrant and account access |
+| Service              | What it owns                                           | Preferred transfer method                                       |
+| -------------------- | ------------------------------------------------------ | --------------------------------------------------------------- |
+| GitHub               | Source code and history                                | Transfer the repository to the new user or organization         |
+| Vercel               | Website deployments and domains                        | Transfer the project to the destination Vercel team             |
+| Supabase             | Database, authentication, storage and server functions | Transfer the project to the destination Supabase organization   |
+| Razorpay             | Payments, settlements and merchant KYC                 | Change team access; contact Razorpay if the legal owner changes |
+| Domain registrar/DNS | Public domain and DNS records                          | Transfer the domain or change the registrant and account access |
 
 ## Before starting
 
@@ -24,7 +24,7 @@ Use an Eat.one1-controlled business email for the destination accounts. Do not s
 6. Download or verify a backup of product images and other uploaded files.
 7. Save a list of environment-variable **names only**. Never put their values in this document or Git.
 8. Take screenshots of DNS records, webhook URLs, deployment settings and service integrations.
-9. Confirm that the destination account's plan supports the features and usage required by Eat.one1.
+9. Confirm that the destination account's plan supports the features and usage required by eat.one1.
 
 ## Recommended transfer order
 
@@ -41,7 +41,7 @@ Transfer in this order so the live site remains connected while ownership change
 
 Current repository: `mrAbhimanyuVishwakarma/Eatone1`
 
-1. Add the destination owner or create an Eat.one1 GitHub organization.
+1. Add the destination owner or create an eat.one1 GitHub organization.
 2. Open the repository on GitHub.
 3. Go to **Settings → General → Danger Zone → Transfer ownership**.
 4. Enter the destination username or organization and confirm the repository name.
@@ -77,7 +77,7 @@ If a direct transfer is unavailable, create a new Supabase project, restore the 
 
 Current production project: `eatone1`
 
-1. Add the destination account to an Eat.one1 Vercel team, preferably as an Owner.
+1. Add the destination account to an eat.one1 Vercel team, preferably as an Owner.
 2. Open **Project → Settings → General → Transfer Project**.
 3. Select the destination team and review the project name, domains, aliases and environment variables shown by Vercel.
 4. Complete the transfer and wait for it to finish.
@@ -102,7 +102,7 @@ Razorpay is connected to the merchant's legal entity, KYC documents and settleme
 ## 5. Transfer the domain
 
 1. Add the destination owner to the registrar account or initiate a registrar/account transfer.
-2. Confirm that the registrant email belongs to Eat.one1 and that domain auto-renewal is enabled.
+2. Confirm that the registrant email belongs to eat.one1 and that domain auto-renewal is enabled.
 3. Preserve every DNS record during the move, especially Vercel records, email MX records, SPF, DKIM and DMARC.
 4. If the domain is managed by Vercel, move it to the destination Vercel team and verify the root domain and `www` alias.
 5. Do not cancel the old registrar or DNS service until the website and email work from multiple networks.

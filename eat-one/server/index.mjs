@@ -1015,6 +1015,8 @@ app.put("/api/admin/settings", async (req, res) => {
   for (const k of [
     "announcement",
     "contactEmail",
+    "instagram",
+    "website",
     "businessName",
     "businessAddress",
     "fssai",
@@ -1095,7 +1097,7 @@ if (!process.env.VERCEL) {
   const port = Number(process.env.PORT) || 3000;
   const server = app.listen(port, process.env.HOST || "127.0.0.1", () =>
     console.log(
-      `Eat.one1 is running at http://localhost:${port} (${paymentMode} payments)`,
+      `eat.one1 is running at http://localhost:${port} (${paymentMode} payments)`,
     ),
   );
   server.on("error", (e) => {

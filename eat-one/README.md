@@ -1,8 +1,16 @@
-# Eat One
+# eat.one1
 
 A complete local snack storefront and admin application, with an intentionally empty product catalog. React + Vite, Express, SQLite for local use, and a PostgreSQL adapter for deployment.
 
 Ownership and account migration instructions are documented in [docs/ACCOUNT_TRANSFER_GUIDE.md](docs/ACCOUNT_TRANSFER_GUIDE.md).
+
+## Official contact details
+
+- Brand: **eat.one1**
+- Instagram: <https://www.instagram.com/eat.one1/>
+- WhatsApp: [+91 861 840 1072](https://wa.me/918618401072)
+- Email: [eatonebusiness@gmail.com](mailto:eatonebusiness@gmail.com)
+- Temporary website: <https://eatone1.vercel.app/>
 
 ## Open the running app
 
@@ -79,7 +87,7 @@ Reviewed https://github.com/youpi-pg/YouPI-PG at commit `405327c27d78ae9d0dccdb1
 
 ## Database & deployment
 
-SQLite at `data/eat-one.sqlite` makes localhost easy to run. Production uses the Eat.one1 Supabase PostgreSQL project in Mumbai (`qprmatfkdczqiziudfxp`). The schema is versioned under `supabase/migrations/`; apply future migrations with `npx supabase db push --remote`.
+SQLite at `data/eat-one.sqlite` makes localhost easy to run. Production uses the eat.one1 Supabase PostgreSQL project in Mumbai (`qprmatfkdczqiziudfxp`). The schema is versioned under `supabase/migrations/`; apply future migrations with `npx supabase db push --remote`.
 
 For this project, a managed PostgreSQL service such as Supabase is a practical starting point, with a pooled server connection, a small application connection pool, backups, and a region close to customers. As checked on 2 November 2026, [Supabase Pro](https://supabase.com/pricing) starts at USD 25/month; usage and compute upgrades cost extra. The free tier is useful for evaluation but may pause after inactivity. This is not a guarantee that the cheapest plan can handle thousands of simultaneous checkouts.
 
@@ -125,8 +133,8 @@ Browser tests use Playwright Core and an installed Chromium. Set `CHROME_PATH` t
 
 ## Design & evidence
 
-The reference research used Playwright and REA's `capture-browser-scenario`; screenshots, accessible Instagram profile metadata and the REA evidence record are in `../research`. Eat One's public profile supplied Bangalore, pan-India delivery and WhatsApp contact details. Photos are downloaded from the brand's public Instagram feed; original pack shots should replace reel thumbnails when available. Product-level health claims are not inferred from social captions.
+The reference research used Playwright and REA's `capture-browser-scenario`; screenshots, accessible Instagram profile metadata and the REA evidence record are in `../research`. eat.one1's public profile supplied Bangalore, pan-India delivery and WhatsApp contact details. Photos are downloaded from the brand's public Instagram feed; original pack shots should replace reel thumbnails when available. Product-level health claims are not inferred from social captions.
 
-Visual direction: Chak Now's cream/green warmth, playful motion and prominent food imagery, with Anand Sweets' category browsing adapted to an original Eat One storefront. The supplied design-skills repository's design-principles guidance informed hierarchy and restraint. Fonts are self-hosted Google Fonts: DM Sans and DM Serif Display, distributed under the SIL Open Font License. No third-party website scripts, brand logos, video or checkout code are copied into the app.
+Visual direction: Chak Now's cream/green warmth, playful motion and prominent food imagery, with Anand Sweets' category browsing adapted to an original eat.one1 storefront. The supplied design-skills repository's design-principles guidance informed hierarchy and restraint. Fonts are self-hosted Google Fonts: DM Sans and DM Serif Display, distributed under the SIL Open Font License. No third-party website scripts, brand logos, video or checkout code are copied into the app.
 
 This local project was added in `eat-one/` to preserve the workspace's existing deletions and reference folder. The unrelated REA repository was not modified.

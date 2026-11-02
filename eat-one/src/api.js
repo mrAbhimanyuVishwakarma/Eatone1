@@ -1,0 +1,2 @@
+export async function api(path,options={}){const form=options.body instanceof FormData;const res=await fetch('/api'+path,{...options,headers:{'X-Requested-With':'EatOne',...(form?{}:{'Content-Type':'application/json'}),...options.headers},body:options.body&&!form?JSON.stringify(options.body):options.body});const data=await res.json();if(!res.ok)throw new Error(data.error||'Unable to complete request.');return data;}
+export const money=p=>new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR',maximumFractionDigits:0}).format(p/100);

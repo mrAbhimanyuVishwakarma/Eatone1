@@ -1,0 +1,23 @@
+{
+    "browser":  {
+                    "mode":  "launch",
+                    "executable_path":  "C:/Users/abhim/AppData/Local/ms-playwright/chromium-1200/chrome-win64/chrome.exe"
+                },
+    "start_url":  {
+                      "url":  "https://www.anandsweets.in/"
+                  },
+    "actions":  [
+                    {
+                        "step_id":  "settle",
+                        "action":  "wait_for_timeout",
+                        "duration_ms":  3000
+                    }
+                ],
+    "capture":  {
+                    "at_end":  [
+                                   "dom",
+                                   "accessibility",
+                                   "url"
+                               ]
+                }
+}

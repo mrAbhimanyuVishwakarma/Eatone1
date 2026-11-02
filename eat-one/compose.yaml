@@ -1,0 +1,11 @@
+services:
+  store:
+    build: .
+    ports:
+      - "127.0.0.1:3000:3000"
+    env_file: .env.production
+    volumes:
+      - eatone_uploads:/app/uploads
+    restart: unless-stopped
+volumes:
+  eatone_uploads:

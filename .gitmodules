@@ -1,0 +1,3 @@
+[submodule "research/design-skills"]
+	path = research/design-skills
+	url = https://github.com/zstvns/design-skills.git

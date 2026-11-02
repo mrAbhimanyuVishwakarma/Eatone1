@@ -17,6 +17,9 @@ import {
   requireAdmin,
 } from "./auth.mjs";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const uploadRoot = process.env.VERCEL
+  ? path.join("/tmp", "eat-one-uploads")
+  : path.join(root, "uploads");
 const production = process.env.NODE_ENV === "production";
 const paymentMode = process.env.PAYMENTS_MODE || "disabled";
 if (production && paymentMode === "test")
@@ -28,7 +31,7 @@ if (production && !postgres)
 if (production && !process.env.SITE_ORIGIN?.startsWith("https://"))
   throw new Error("Production requires an HTTPS SITE_ORIGIN.");
 await initDB();
-await fs.mkdir(path.join(root, "uploads"), { recursive: true });
+await fs.mkdir(uploadRoot, { recursive: true });
 export const app = express();
 app.disable("x-powered-by");
 const proxyHops = Number(process.env.TRUST_PROXY_HOPS || 0);
@@ -967,7 +970,7 @@ app.post("/api/admin/upload", upload.single("image"), async (req, res) => {
     });
     return res.json({ url: blob.url });
   }
-  await fs.writeFile(path.join(root, "uploads", filename), b, { flag: "wx" });
+  await fs.writeFile(path.join(uploadRoot, filename), b, { flag: "wx" });
   res.json({ url: "/uploads/" + filename });
 });
 app.put("/api/admin/orders/:id", async (req, res) => {
@@ -1047,7 +1050,7 @@ app.use("/api", (req, res) =>
 );
 app.use(
   "/uploads",
-  express.static(path.join(root, "uploads"), {
+  express.static(uploadRoot, {
     maxAge: "1d",
     setHeaders: (res) => res.set("X-Content-Type-Options", "nosniff"),
   }),

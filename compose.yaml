@@ -1,0 +1,16 @@
+services:
+  eatone:
+    build: .
+    ports:
+      - "127.0.0.1:3000:3000"
+    environment:
+      PORT: 3000
+      HOST: 0.0.0.0
+      APP_ORIGIN: ${APP_ORIGIN:-http://localhost:3000}
+      NODE_ENV: ${NODE_ENV:-development}
+      DATA_DIR: /app/data
+    volumes:
+      - eatone-data:/app/data
+    restart: unless-stopped
+volumes:
+  eatone-data:

@@ -1,0 +1,6 @@
+{
+  "name": "eatone-store", "version": "1.0.0", "private": true, "type": "module",
+  "description": "EatOne storefront and authenticated admin management",
+  "engines": {"node": ">=24.0.0"},
+  "scripts": {"start": "node --env-file-if-exists=.env server.mjs", "dev": "node --env-file-if-exists=.env server.mjs", "admin": "node --env-file-if-exists=.env admin.mjs", "test": "node --test test/*.test.mjs"}
+}

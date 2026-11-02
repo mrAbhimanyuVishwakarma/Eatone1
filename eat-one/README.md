@@ -1,140 +1,295 @@
 # eat.one1
 
-A complete local snack storefront and admin application, with an intentionally empty product catalog. React + Vite, Express, SQLite for local use, and a PostgreSQL adapter for deployment.
+Production-ready foundation for the **eat.one1** snack storefront and its protected owner dashboard.
 
-Ownership and account migration instructions are documented in [docs/ACCOUNT_TRANSFER_GUIDE.md](docs/ACCOUNT_TRANSFER_GUIDE.md).
+The application includes a responsive React storefront, ten high-resolution catalog products, customer accounts, wishlist and ordering flows, product administration, Supabase PostgreSQL persistence, sales insights, service-health monitoring, and a Razorpay-ready checkout integration.
 
-## Official contact details
+## Links and contact
 
-- Brand: **eat.one1**
-- Instagram: <https://www.instagram.com/eat.one1/>
-- WhatsApp: [+91 861 840 1072](https://wa.me/918618401072)
-- Email: [eatonebusiness@gmail.com](mailto:eatonebusiness@gmail.com)
-- Temporary website: <https://eatone1.vercel.app/>
+| Item         | Details                                                                       |
+| ------------ | ----------------------------------------------------------------------------- |
+| Live website | [https://eatone1.vercel.app/](https://eatone1.vercel.app/) — temporary domain |
+| Admin        | [https://eatone1.vercel.app/admin](https://eatone1.vercel.app/admin)          |
+| Instagram    | [@eat.one1](https://www.instagram.com/eat.one1/)                              |
+| WhatsApp     | [+91 861 840 1072](https://wa.me/918618401072)                                |
+| Email        | [eatonebusiness@gmail.com](mailto:eatonebusiness@gmail.com)                   |
 
-## Open the running app
+Ownership migration instructions are in the [Account Transfer Guide](docs/ACCOUNT_TRANSFER_GUIDE.md).
 
-- Store: http://localhost:3000
-- Admin: http://localhost:3000/admin
-- Local administrator email: `admin@eatone.local`
-- The uniquely generated local password is `ADMIN_PASSWORD` in the ignored `.env` file. Do not share or commit that file.
+## Current production status
 
-The development server is bound to loopback. Local checkout is clearly labelled **test mode**: no funds move and no physical order should be dispatched. The catalog starts empty; the test suites use separate temporary databases.
+| Service                           | State          | Notes                                                                    |
+| --------------------------------- | -------------- | ------------------------------------------------------------------------ |
+| Vercel website and API            | Running        | Production deployment is live                                            |
+| Supabase PostgreSQL               | Running        | Mumbai region; migrations applied                                        |
+| Product catalog                   | Running        | Ten products with 1254×1254 images                                       |
+| Customer and admin authentication | Running        | Server-managed sessions and role checks                                  |
+| Product image uploads             | Setup required | Connect Vercel Blob for durable admin uploads                            |
+| Razorpay checkout                 | Setup required | Checkout remains disabled until merchant keys and webhook are configured |
 
-## Start again
+The admin dashboard displays these services using green, orange, and red status cards. Orange means configuration or attention is required; red means an error or incomplete live configuration.
 
-Requires Node 22.13+ with `node:sqlite` support (developed and tested on Node 26).
+## Features
+
+### Storefront
+
+- Responsive homepage, shop, category and occasion filters, search and sorting.
+- Product pages with price, MRP, pack size, stock, ingredients, allergens, nutrition, storage and shelf life.
+- Ten high-resolution eat.one1 catalog images plus the supplied customer-review highlight.
+- Customer registration, sign-in, password changes and secure sign-out.
+- Wishlist, persistent shopping bag, saved delivery address and order history.
+- Server-calculated prices, shipping and stock validation.
+- Story, snack journal, newsletter signup, policies and official contact links.
+
+### Owner dashboard
+
+- Protected `/admin` access; there is no public administrator registration.
+- Add, edit, publish, draft, archive or delete products.
+- Products used in historical orders are archived instead of permanently deleted.
+- Upload product images, update stock and control homepage features.
+- Manage orders, fulfilment status and tracking information.
+- Edit business details, delivery fees, contact information and policies.
+- View subscribers and product-level performance.
+- Review 30-day views, units sold, product revenue, conversion indicators and sales trends.
+- Receive cautious price-test, merchandising and restocking suggestions based on real store data.
+- Monitor API, Supabase, image storage and Razorpay status.
+
+Test orders are excluded from paid revenue and sales recommendations.
+
+## Technology
+
+| Layer               | Technology                                            |
+| ------------------- | ----------------------------------------------------- |
+| Frontend            | React 19, Vite 7, Lucide icons                        |
+| API                 | Express 5 running as a Vercel Function                |
+| Production database | Supabase PostgreSQL                                   |
+| Local database      | Node SQLite                                           |
+| Image uploads       | Vercel Blob integration; bundled images remain static |
+| Payments            | Razorpay-ready server integration                     |
+| Hosting             | Vercel                                                |
+| Tests               | Node test runner and Playwright Core                  |
+
+## Project structure
+
+```text
+eat-one/
+├── api/                    Vercel serverless entry point
+├── docs/                   Operational and ownership documentation
+├── public/                 Fonts, product photos and static assets
+├── scripts/                Build orchestration
+├── server/                 Express API, auth, database and catalog import
+├── src/                    React storefront and admin dashboard
+├── supabase/migrations/    Versioned production database schema
+├── tests/                  API and browser journey tests
+├── .env.example            Environment-variable template
+├── vercel.json             Hosting and API rewrite configuration
+└── README.md
+```
+
+The repository root also tracks installed agent instructions and the design-skills reference as a Git submodule. Clone with `--recurse-submodules` if those references are needed.
+
+## Local setup
+
+Requirements:
+
+- Node.js `22.13` or newer; Node 26 is currently tested.
+- npm.
+- Git submodules are optional for running the application.
 
 ```powershell
-cd D:\Projects\Eatone1\eat-one
+git clone --recurse-submodules https://github.com/mrAbhimanyuVishwakarma/Eatone1.git
+cd Eatone1\eat-one
 npm ci
 node server/local-setup.mjs
 npm run admin
 npm run dev
 ```
 
-`local-setup.mjs` preserves any existing `.env`. To create or reset an administrator, set `ADMIN_EMAIL` and a unique `ADMIN_PASSWORD` of 12+ characters in `.env`, then run `npm run admin`. There is no public admin registration. Customer registration always assigns the customer role, regardless of submitted fields.
+Open:
 
-## Included
+- Store: [http://localhost:3000](http://localhost:3000)
+- Admin: [http://localhost:3000/admin](http://localhost:3000/admin)
 
-- Responsive homepage, category navigation, occasion/genre filters, search, sorting, journal, story, contact links, editable policies, newsletter opt-in storage.
-- Empty and small-catalog layouts. No fake products, orders, reviews, certifications, or customer counts.
-- Product details, photos, prices, MRP, pack size, ingredients, allergens, nutrition, product highlights, storage and shelf life.
-- Customer registration/sign-in/sign-out, password changes, saved address, server-backed wishlist, persistent browser bag, checkout, account overview and order history.
-- Protected admin dashboard; add/update/delete-or-archive products; image upload; inventory; order fulfilment states; tracking text; subscriber list; store settings.
-- Product-view and paid-sales insights with 30-day trends, cautious price experiments, stock recommendations, and green/orange/red health cards for the API, Supabase, image storage, and Razorpay.
-- Server-calculated prices/shipping, transactional inventory, immutable order item snapshots, checkout idempotency, payment HMAC verification, signed payment webhooks, customer order ownership checks.
-- Password scrypt hashing; hashed, expiring session tokens in HttpOnly/SameSite cookies; role enforcement; request-origin checks; rate limits; image type checks; production security headers.
+`local-setup.mjs` creates or preserves an ignored `.env` file. Set a unique administrator email and a password of at least 12 characters before running `npm run admin`:
 
-## Add your first snack
+```dotenv
+ADMIN_EMAIL=owner@example.com
+ADMIN_PASSWORD=replace-with-a-unique-long-password
+```
+
+Never commit `.env`, `.env.local`, database passwords, Razorpay secrets, recovery codes or administrator passwords.
+
+## Environment variables
+
+Copy [.env.example](.env.example) when configuring another environment.
+
+| Variable                           | Purpose                                                   |
+| ---------------------------------- | --------------------------------------------------------- |
+| `NODE_ENV`                         | Use `production` only in the deployed environment         |
+| `PORT`, `HOST`                     | Local/server bind configuration                           |
+| `SITE_ORIGIN`                      | Exact public HTTPS origin used for mutation checks        |
+| `DATABASE_URL`                     | Pooled PostgreSQL connection; empty uses SQLite locally   |
+| `DATABASE_SSL`                     | Enables encrypted PostgreSQL transport                    |
+| `DATABASE_SSL_REJECT_UNAUTHORIZED` | Controls certificate-chain verification                   |
+| `DATABASE_POOL_MAX`                | Per-instance database connection limit; use `1` on Vercel |
+| `TRUST_PROXY_HOPS`                 | Trusted reverse-proxy count; Vercel uses `1`              |
+| `PAYMENTS_MODE`                    | `disabled`, local-only `test`, or `razorpay`              |
+| `RAZORPAY_KEY_ID`                  | Razorpay public merchant key ID                           |
+| `RAZORPAY_KEY_SECRET`              | Razorpay server secret                                    |
+| `RAZORPAY_WEBHOOK_SECRET`          | Independent webhook-signing secret                        |
+| `BLOB_READ_WRITE_TOKEN`            | Durable Vercel Blob image uploads                         |
+| `ADMIN_EMAIL`, `ADMIN_PASSWORD`    | Used only by `npm run admin`                              |
+
+Production refuses to start with SQLite, a non-HTTPS `SITE_ORIGIN`, or test payments.
+
+## Database and Supabase
+
+Production uses the **eat.one1** Supabase project in Mumbai:
+
+- Project reference: `qprmatfkdczqiziudfxp`
+- Schema: [supabase/migrations](supabase/migrations)
+- Public Supabase Data API access to application tables is blocked with row-level security.
+- The application connects only through its protected server-side PostgreSQL connection.
+
+Apply future migrations from `eat-one/`:
+
+```powershell
+npx supabase link --project-ref qprmatfkdczqiziudfxp
+npx supabase db push --remote
+npx supabase db advisors --remote --type security
+```
+
+Local development uses `data/eat-one.sqlite` unless `DATABASE_URL` is supplied.
+
+Important: `npm run build` executes `postbuild`, which runs `server/import-eatone-products.mjs`. If `DATABASE_URL` is present, the catalog import targets that database. Verify the selected environment before building.
+
+## Product administration
 
 1. Sign in at `/admin`.
-2. Choose **Add a product**. Complete the description, category, occasion, pack size, prices in rupees, stock, ingredients, allergens, shelf life and storage instructions.
-3. Upload a JPG, PNG or WebP (up to 5 MB). Include verified nutrition values and units when available.
-4. Select **Draft** to save privately, or **Live** to publish. Choose **Feature this snack** to show it on the homepage.
-5. Products become available to other visitors immediately; reload an already-open browser tab to refresh its catalog.
+2. Choose **Add a product**.
+3. Enter verified product descriptions, ingredients, allergens, nutrition, price, stock, shelf life and storage instructions.
+4. Upload JPG, PNG or WebP up to 5 MB.
+5. Save as **Draft** or choose **Live** to publish.
+6. Use **Feature this snack** for homepage promotion.
 
-Store settings control the announcement, shipping fee/free-shipping threshold, WhatsApp, support email, business address, FSSAI number, shipping/refund/privacy policies and terms. Review the initial policy copy before public launch: it is a starting point, not your final business policy.
+Avoid unverified medical, weight-loss, hair-growth or disease-treatment promises. Customer-facing nutrition and health information must match the current product label.
 
-## Payments
+## Image storage
 
-### Local tests
+Bundled catalog images work without an external service. New images uploaded through the production admin dashboard require `BLOB_READ_WRITE_TOKEN` so they survive serverless restarts.
 
-`PAYMENTS_MODE=test` is allowed only outside production. Test orders are marked `test_paid`, excluded from paid revenue, and prominently labelled. Test mode never calls a payment provider.
+Until Vercel Blob is connected, the dashboard correctly reports image storage as orange. Do not rely on temporary serverless filesystem uploads in production.
 
-### Razorpay
+## Razorpay setup
 
-Set these **on the server**:
+Local test mode never moves funds:
+
+```dotenv
+PAYMENTS_MODE=test
+```
+
+Production configuration:
 
 ```dotenv
 PAYMENTS_MODE=razorpay
 RAZORPAY_KEY_ID=your_key_id
 RAZORPAY_KEY_SECRET=your_key_secret
-RAZORPAY_WEBHOOK_SECRET=your_separate_webhook_secret
+RAZORPAY_WEBHOOK_SECRET=your_independent_webhook_secret
 ```
 
-Enable automatic capture in your Razorpay account. Register the public HTTPS webhook `https://YOUR_DOMAIN/api/payments/webhook` for `payment.captured`, with the same webhook secret. Use Razorpay test credentials to validate the full provider flow before using live credentials. Customers can resume an interrupted payment from My orders, reusing the provider order and its original inventory reservation.
+Configure Razorpay automatic capture and register:
 
-The server creates provider orders using its own prices and validates captured status, amount, currency, order association and signatures. The browser callback cannot mark an arbitrary order paid. Use **Check payment status** in order history if the browser was closed during payment. Signed webhooks can confirm payments independently of the browser.
+```text
+https://eatone1.vercel.app/api/payments/webhook
+```
 
-Stock is reserved when checkout creates an order, preventing overselling. Pending provider orders conservatively retain their reservation; they are **not automatically cancelled or restocked** because an outstanding payment can still settle. Reconcile outstanding provider orders against the provider before operationally releasing stock. Automated expiration/cancellation, refunds, disputes and shipping-provider integration remain launch-stage operational work. The app does not offer automated refund processing.
+Subscribe it to `payment.captured` and use the same independent webhook secret in Vercel. Validate the complete flow with Razorpay test credentials before enabling live keys.
 
-No live Razorpay transaction has been executed here: merchant credentials and webhook hosting were not supplied. The tested local checkout uses test orders.
+The server:
 
-### YouPI-PG assessment
+- Calculates totals from database prices.
+- Reserves inventory transactionally.
+- Uses checkout idempotency keys.
+- Verifies amount, currency, provider order, payment status and signatures.
+- Supports signed webhooks and payment reconciliation.
 
-Reviewed https://github.com/youpi-pg/YouPI-PG at commit `405327c27d78ae9d0dccdb1e2d2426cefc359477` on 2 November 2026. Its README describes it as an experimental research project, explicitly not production-ready, and warns against high-volume/business-critical payments. It relies on bank SMS/Gmail observations, which the project says are not conclusive settlement evidence. It is **not integrated or enabled** in this storefront. It does not meet the stated requirement for thousands of simultaneous buyers. If evaluated separately, use isolated test data and independent bank reconciliation.
+Pending payment orders retain their stock reservation. Automated expiry, automatic restocking, refunds, disputes and shipping-provider integration are not yet implemented.
 
-## Database & deployment
+The experimental YouPI-PG payment project is intentionally not integrated because it is not appropriate for production merchant settlement verification.
 
-SQLite at `data/eat-one.sqlite` makes localhost easy to run. Production uses the eat.one1 Supabase PostgreSQL project in Mumbai (`qprmatfkdczqiziudfxp`). The schema is versioned under `supabase/migrations/`; apply future migrations with `npx supabase db push --remote`.
+## Vercel deployment
 
-For this project, a managed PostgreSQL service such as Supabase is a practical starting point, with a pooled server connection, a small application connection pool, backups, and a region close to customers. As checked on 2 November 2026, [Supabase Pro](https://supabase.com/pricing) starts at USD 25/month; usage and compute upgrades cost extra. The free tier is useful for evaluation but may pause after inactivity. This is not a guarantee that the cheapest plan can handle thousands of simultaneous checkouts.
-
-Production configuration:
+The Vercel project uses `eat-one/` as its Root Directory. Required production configuration currently includes:
 
 ```dotenv
 NODE_ENV=production
-HOST=0.0.0.0
-PORT=3000
-SITE_ORIGIN=https://YOUR_DOMAIN
-DATABASE_URL=postgresql://USER:PASSWORD@HOST:PORT/DATABASE
+SITE_ORIGIN=https://eatone1.vercel.app
+DATABASE_URL=postgresql://...
 DATABASE_SSL=true
-DATABASE_SSL_REJECT_UNAUTHORIZED=true
+DATABASE_SSL_REJECT_UNAUTHORIZED=false
 DATABASE_POOL_MAX=1
-PAYMENTS_MODE=razorpay
+TRUST_PROXY_HOPS=1
+PAYMENTS_MODE=disabled
 ```
 
-`DATABASE_SSL=true` keeps the database connection encrypted. Certificate-chain validation is enabled by default; the deployed Supabase pooler currently requires `DATABASE_SSL_REJECT_UNAUTHORIZED=false` while retaining TLS encryption. `DATABASE_POOL_MAX=1` prevents each serverless instance from opening an excessive number of connections. The app refuses production startup with SQLite, test payments, or a non-HTTPS site origin. Complete payment variables separately.
+Add Vercel Blob and Razorpay variables when those services are activated. Each push to `main` triggers a production deployment.
 
-```sh
-npm ci
-npm run build
-npm run admin
-npm start
-```
+## Commands
 
-Deploy the Node service behind HTTPS with the correct `SITE_ORIGIN`. Set `TRUST_PROXY_HOPS=1` only when there is exactly one trusted reverse proxy. If your platform has a different topology, configure that value for its actual trusted proxy chain; never expose the origin server around that proxy. Secure cookies require HTTPS.
+| Command                           | Purpose                                              |
+| --------------------------------- | ---------------------------------------------------- |
+| `npm run dev`                     | Start the local storefront and API                   |
+| `npm run admin`                   | Create or reset the configured administrator         |
+| `npm run build`                   | Build the frontend and run the catalog import        |
+| `npm start`                       | Start the application server                         |
+| `npm test`                        | Run API, authorization, inventory and checkout tests |
+| `node tests/browser-smoke.mjs`    | Run the browser smoke journey                        |
+| `node tests/browser-purchase.mjs` | Run the browser purchase journey                     |
 
-Vercel deployments require `BLOB_READ_WRITE_TOKEN` before new admin image uploads can persist; bundled product images continue to work without it. Use a pooled PostgreSQL URL with the provider's documented TLS configuration. The production PostgreSQL schema, product import, live catalog API, and protected administrator login have been exercised end to end. Live Razorpay payments still require separate merchant credentials and webhook validation.
+Browser tests use Playwright Core and an installed Chromium. Set `CHROME_PATH` when Chromium is installed in a non-standard location. Test screenshots are written to the ignored `test-results/` directory.
 
-Before accepting real purchases: finish business/FSSAI/tax details, confirm product labels and nutrition, define actual delivery coverage and service levels, finalize policies, set up backups and restoration, configure monitoring and payment reconciliation, test provider webhooks and refund operations, and load-test the deployed application with realistic browsing/checkout traffic. Capacity depends on infrastructure, query load, provider limits and concurrent checkout behaviour.
+## Security model
 
-## Verification
+- Scrypt password hashing with unique salts.
+- Random session tokens stored as hashes in the database.
+- HttpOnly, SameSite cookies and Secure cookies in production.
+- Customer/admin role enforcement on the server.
+- Request-origin validation for mutations.
+- Login, checkout and API rate limits.
+- File size and image-signature checks.
+- Helmet production security headers and content security policy.
+- Server-side price, inventory and payment verification.
+- Customer ownership checks for addresses, wishlists and orders.
 
-```sh
-npm run build
-npm test
-node tests/browser-smoke.mjs
-node tests/browser-purchase.mjs
-```
+## Launch checklist
 
-Browser tests use Playwright Core and an installed Chromium. Set `CHROME_PATH` to your browser executable on another machine. The smoke test expects the main store running on port 3000. The purchase test starts its own server on port 3100 with a temporary database; API tests use port 3099. Browser screenshots are saved under ignored `test-results/`.
+Before accepting real orders:
 
-## Design & evidence
+- [ ] Connect Vercel Blob and test an admin image upload.
+- [ ] Complete Razorpay merchant KYC, keys, webhook and controlled test payment.
+- [ ] Add and verify FSSAI, tax and legal business details.
+- [ ] Confirm every label, ingredient, allergen, nutrition and shelf-life value.
+- [ ] Finalize shipping, cancellation, return, refund, privacy and terms policies.
+- [ ] Configure database backups and perform a restore drill.
+- [ ] Define how pending payments, refunds, disputes and stock releases are reconciled.
+- [ ] Test email, WhatsApp support and delivery operations.
+- [ ] Load-test browsing and checkout with realistic concurrency before a large campaign.
+- [ ] Replace the temporary Vercel address with the permanent business domain.
 
-The reference research used Playwright and REA's `capture-browser-scenario`; screenshots, accessible Instagram profile metadata and the REA evidence record are in `../research`. eat.one1's public profile supplied Bangalore, pan-India delivery and WhatsApp contact details. Photos are downloaded from the brand's public Instagram feed; original pack shots should replace reel thumbnails when available. Product-level health claims are not inferred from social captions.
+## Design and source evidence
 
-Visual direction: Chak Now's cream/green warmth, playful motion and prominent food imagery, with Anand Sweets' category browsing adapted to an original eat.one1 storefront. The supplied design-skills repository's design-principles guidance informed hierarchy and restraint. Fonts are self-hosted Google Fonts: DM Sans and DM Serif Display, distributed under the SIL Open Font License. No third-party website scripts, brand logos, video or checkout code are copied into the app.
+The visual system is an original eat.one1 implementation informed by the warm, playful direction of Chak Now and the catalog hierarchy of Anand Sweets. It does not copy their code, logos or checkout implementation.
 
-This local project was added in `eat-one/` to preserve the workspace's existing deletions and reference folder. The unrelated REA repository was not modified.
+Reference captures and source research are stored under the repository-level `research/` directory. Public Instagram material was used only as brand/product evidence. Product claims were not inferred beyond supplied catalog information. The current website uses high-resolution catalog assets rather than low-resolution Instagram screenshots.
+
+DM Sans and DM Serif Display are self-hosted under the SIL Open Font License.
+
+## Ownership and maintenance
+
+- Account-transfer procedure: [docs/ACCOUNT_TRANSFER_GUIDE.md](docs/ACCOUNT_TRANSFER_GUIDE.md)
+- Production code: GitHub `main`
+- Hosting: Vercel project `eatone1`
+- Database: Supabase project `qprmatfkdczqiziudfxp`
+- Primary contact: [eatonebusiness@gmail.com](mailto:eatonebusiness@gmail.com)
+
+Keep infrastructure under an eat.one1-controlled business email and enable two-factor authentication for GitHub, Vercel, Supabase, Razorpay and the domain registrar.

@@ -33,7 +33,8 @@ npm run dev
 - Empty and small-catalog layouts. No fake products, orders, reviews, certifications, or customer counts.
 - Product details, photos, prices, MRP, pack size, ingredients, allergens, nutrition, product highlights, storage and shelf life.
 - Customer registration/sign-in/sign-out, password changes, saved address, server-backed wishlist, persistent browser bag, checkout, account overview and order history.
-- Protected admin dashboard; draft/publish/archive products; image upload; inventory; order fulfilment states; tracking text; subscriber list; store settings.
+- Protected admin dashboard; add/update/delete-or-archive products; image upload; inventory; order fulfilment states; tracking text; subscriber list; store settings.
+- Product-view and paid-sales insights with 30-day trends, cautious price experiments, stock recommendations, and green/orange/red health cards for the API, Supabase, image storage, and Razorpay.
 - Server-calculated prices/shipping, transactional inventory, immutable order item snapshots, checkout idempotency, payment HMAC verification, signed payment webhooks, customer order ownership checks.
 - Password scrypt hashing; hashed, expiring session tokens in HttpOnly/SameSite cookies; role enforcement; request-origin checks; rate limits; image type checks; production security headers.
 

@@ -1,36 +1,221 @@
-import { randomUUID } from 'node:crypto';
-import { initDB, query, closeDB } from './db.mjs';
+import { randomUUID } from "node:crypto";
+import { initDB, query, closeDB } from "./db.mjs";
 
 const common = {
-  category: 'Nutrition laddoos', genre: 'Everyday wellness', mrp: 0,
-  weight: '500 g', stock: 25, nutrition: JSON.stringify({}),
-  shelf_life: 'Please see the pack for the latest best-before date.',
-  storage: 'Store in a cool, dry place in an airtight container. Refrigerate after opening if advised on the pack.',
-  status: 'live'
+  category: "Nutrition laddoos",
+  genre: "Everyday wellness",
+  mrp: 0,
+  weight: "500 g",
+  stock: 25,
+  nutrition: JSON.stringify({}),
+  shelf_life: "Please see the pack for the latest best-before date.",
+  storage:
+    "Store in a cool, dry place in an airtight container. Refrigerate after opening if advised on the pack.",
+  status: "live",
 };
 
 const products = [
-  {name:'Granola for healthy breakfast',slug:'granola-for-healthy-breakfast',description:'Homemade granola with oats, seeds, nuts and honey for a crunchy breakfast or snack.',category:'Granola',genre:'Breakfast',price:69900,image:'/images/products/granola.png',ingredients:'Rolled oats, sunflower seeds, pumpkin seeds, watermelon seeds, flax seeds, almonds, walnuts, black raisins, honey, cinnamon powder, chia seeds.',allergens:'Contains almonds and walnuts. Contains honey. Please ask Eat.one1 about possible cross-contamination before ordering.',benefits:'Homemade in small batches\nMade with oats, seeds and nuts\nEnjoy with milk, curd or yoghurt',featured:1},
-  {name:'Flax pumpkin sesame ladoo',slug:'flax-pumpkin-sesame-ladoo',description:'Naturally sweet date ladoos made with flax, pumpkin and sesame seeds.',price:54900,image:'/images/products/flax-pumpkin-sesame-ladoo.png',ingredients:'Flax seeds, pumpkin seeds, black sesame seeds, white sesame seeds, dates.',allergens:'Contains sesame seeds. Please ask Eat.one1 about possible cross-contamination before ordering.',benefits:'Naturally sweetened with dates\nMade with flax, pumpkin and sesame seeds',featured:1},
-  {name:'wedding Glow ladoos',slug:'wedding-glow-ladoos',description:'Seed- and nut-rich date ladoos handcrafted for celebratory gifting and everyday snacking.',price:89900,image:'/images/products/wedding-glow-ladoo.png',ingredients:'Aliv seeds, flax seeds, black sesame seeds, pumpkin seeds, watermelon seeds, sunflower seeds, fenugreek seeds, makhana, almonds, walnuts, dates, cardamom powder, ginger powder.',allergens:'Contains almonds, walnuts and sesame seeds. Please ask Eat.one1 about possible cross-contamination before ordering.',benefits:'Approximately 33–35 pieces per 500 g pack\nNo refined sugar listed in the catalog',featured:1},
-  {name:'Brazil nuts Ladoos',slug:'brazil-nuts-ladoos',description:'Nutrient-rich handmade ladoos with Brazil nuts, seeds, dates and warming spices.',price:89900,image:'/images/products/brazil-nut-ladoo.png',ingredients:'Brazil nuts, flax seeds, pumpkin seeds, sunflower seeds, white sesame seeds, watermelon seeds, almonds, walnuts, makhana (fox nuts), aliv (garden cress) seeds, dates, cardamom powder, dry ginger powder.',allergens:'Contains Brazil nuts, almonds, walnuts and sesame seeds. Please ask Eat.one1 about possible cross-contamination before ordering.',benefits:'No added sugar or jaggery listed\nNo preservatives listed\nHandcrafted in small batches',featured:0},
-  {name:'Hair Growth Ladoos',slug:'hair-growth-ladoos',description:'A seed-, nut- and date-based ladoo blend sold by Eat.one1 under its original catalog name.',price:79900,image:'/images/products/hair-growth-ladoo.png',ingredients:'Aliv seeds (garden cress seeds), flax seeds, white sesame seeds, pumpkin seeds, sunflower seeds, watermelon seeds, fenugreek seeds, dates, ghee, almonds, walnuts, edible gum (gond), cardamom powder, dry ginger powder.',allergens:'Contains milk (ghee), almonds, walnuts and sesame seeds. Please ask Eat.one1 about possible cross-contamination before ordering.',benefits:'Made with seeds, dates and nuts\nOriginal Eat.one1 catalog recipe',featured:0},
-  {name:'Choco-Hazelnut Ladoo',slug:'choco-hazelnut-ladoo',description:'Cocoa and whole-hazelnut date ladoos with premium nuts and mixed seeds.',price:94900,image:'/images/products/choco-hazelnut-ladoo.png',ingredients:'Cashews, almonds, flax seeds, sunflower seeds, pumpkin seeds, watermelon seeds, walnuts, pistachios, sesame seeds, unsweetened cocoa powder, dates, whole hazelnuts.',allergens:'Contains cashews, almonds, walnuts, pistachios, hazelnuts and sesame seeds. Please ask Eat.one1 about possible cross-contamination before ordering.',benefits:'Unsweetened cocoa powder\nNaturally sweetened with dates',featured:0},
-  {name:'Gond-Poppy seeds Ladoo ( Post partum recommended)',slug:'gond-poppy-seeds-ladoo',description:'A traditional gond, poppy-seed, nut and date ladoo sold under Eat.one1’s original catalog name.',price:89900,image:'/images/products/gond-poppy-ladoo.png',ingredients:'Gond (edible gum), cashews, almonds, walnuts, pistachios, makhana (fox nuts), dates, sesame seeds, flax seeds, pumpkin seeds, watermelon seeds, poppy seeds, raisins, ghee.',allergens:'Contains milk (ghee), cashews, almonds, walnuts, pistachios and sesame seeds. Contains poppy seeds. Please consult a qualified clinician for postpartum dietary advice.',benefits:'Traditional gond and poppy-seed recipe\nMade with nuts, seeds and dates',featured:0},
-  {name:'Multi Nutritional Ladoo',slug:'multi-nutritional-ladoo',description:'A premium everyday ladoo made with mixed seeds, nuts, dates and ghee.',price:69900,image:'/images/products/multi-nutrition-ladoo.png',ingredients:'Flax seeds, pumpkin seeds, watermelon seeds, sunflower seeds, almonds, cashews, dates, ghee.',allergens:'Contains milk (ghee), almonds and cashews. Please ask Eat.one1 about possible cross-contamination before ordering.',benefits:'Made with premium ingredients\nMixed seeds, nuts and dates',featured:0},
-  {name:'Multi Nutrition ladoo with additional dry fruits ( PCOD/ PCOS recommended)',slug:'multi-nutrition-ladoo-additional-dry-fruits',description:'A premium mixed-seed and dry-fruit ladoo sold under Eat.one1’s original catalog name.',price:79900,image:'/images/products/pcod-multi-nutrition-ladoo.png',ingredients:'Flax seeds, sesame seeds, pumpkin seeds, watermelon seeds, sunflower seeds, almonds, cashews, walnuts, pistachios, makhana, dates, ghee.',allergens:'Contains milk (ghee), almonds, cashews, walnuts, pistachios and sesame seeds. Please consult a qualified clinician for PCOD/PCOS dietary advice.',benefits:'Additional dry fruits\nMade with seeds, nuts, dates and ghee',featured:0},
-  {name:'Biotin Powder',slug:'biotin-powder',description:'A finely ground seed, nut, dry-fruit and makhana blend from the Eat.one1 catalog.',category:'Nuts & seeds',genre:'Breakfast',price:89900,image:'/images/products/biotin-powder.png',ingredients:'Pumpkin seeds, watermelon seeds, flax seeds, sunflower seeds, almonds, cashews, walnuts, pistachios, aliv seeds, sesame seeds, dry dates, makhana.',allergens:'Contains almonds, cashews, walnuts, pistachios and sesame seeds. Please ask Eat.one1 about possible cross-contamination before ordering.',benefits:'Finely ground seed and nut blend\nAdd only as directed by Eat.one1',featured:0}
+  {
+    name: "Granola for healthy breakfast",
+    slug: "granola-for-healthy-breakfast",
+    description:
+      "Homemade granola with oats, seeds, nuts and honey for a crunchy breakfast or snack.",
+    category: "Granola",
+    genre: "Breakfast",
+    price: 69900,
+    image: "/images/products/granola.png",
+    ingredients:
+      "Rolled oats, sunflower seeds, pumpkin seeds, watermelon seeds, flax seeds, almonds, walnuts, black raisins, honey, cinnamon powder, chia seeds.",
+    allergens:
+      "Contains almonds and walnuts. Contains honey. Please ask Eat.one1 about possible cross-contamination before ordering.",
+    benefits:
+      "Homemade in small batches\nMade with oats, seeds and nuts\nEnjoy with milk, curd or yoghurt",
+    featured: 1,
+  },
+  {
+    name: "Flax pumpkin sesame ladoo",
+    slug: "flax-pumpkin-sesame-ladoo",
+    description:
+      "Naturally sweet date ladoos made with flax, pumpkin and sesame seeds.",
+    price: 54900,
+    image: "/images/products/flax-pumpkin-sesame-ladoo.png",
+    ingredients:
+      "Flax seeds, pumpkin seeds, black sesame seeds, white sesame seeds, dates.",
+    allergens:
+      "Contains sesame seeds. Please ask Eat.one1 about possible cross-contamination before ordering.",
+    benefits:
+      "Naturally sweetened with dates\nMade with flax, pumpkin and sesame seeds",
+    featured: 1,
+  },
+  {
+    name: "wedding Glow ladoos",
+    slug: "wedding-glow-ladoos",
+    description:
+      "Seed- and nut-rich date ladoos handcrafted for celebratory gifting and everyday snacking.",
+    price: 89900,
+    image: "/images/products/wedding-glow-ladoo.png",
+    ingredients:
+      "Aliv seeds, flax seeds, black sesame seeds, pumpkin seeds, watermelon seeds, sunflower seeds, fenugreek seeds, makhana, almonds, walnuts, dates, cardamom powder, ginger powder.",
+    allergens:
+      "Contains almonds, walnuts and sesame seeds. Please ask Eat.one1 about possible cross-contamination before ordering.",
+    benefits:
+      "Approximately 33–35 pieces per 500 g pack\nNo refined sugar listed in the catalog",
+    featured: 1,
+  },
+  {
+    name: "Brazil nuts Ladoos",
+    slug: "brazil-nuts-ladoos",
+    description:
+      "Nutrient-rich handmade ladoos with Brazil nuts, seeds, dates and warming spices.",
+    price: 89900,
+    image: "/images/products/brazil-nut-ladoo.png",
+    ingredients:
+      "Brazil nuts, flax seeds, pumpkin seeds, sunflower seeds, white sesame seeds, watermelon seeds, almonds, walnuts, makhana (fox nuts), aliv (garden cress) seeds, dates, cardamom powder, dry ginger powder.",
+    allergens:
+      "Contains Brazil nuts, almonds, walnuts and sesame seeds. Please ask Eat.one1 about possible cross-contamination before ordering.",
+    benefits:
+      "No added sugar or jaggery listed\nNo preservatives listed\nHandcrafted in small batches",
+    featured: 0,
+  },
+  {
+    name: "Hair Growth Ladoos",
+    slug: "hair-growth-ladoos",
+    description:
+      "A seed-, nut- and date-based ladoo blend sold by Eat.one1 under its original catalog name.",
+    price: 79900,
+    image: "/images/products/hair-growth-ladoo.png",
+    ingredients:
+      "Aliv seeds (garden cress seeds), flax seeds, white sesame seeds, pumpkin seeds, sunflower seeds, watermelon seeds, fenugreek seeds, dates, ghee, almonds, walnuts, edible gum (gond), cardamom powder, dry ginger powder.",
+    allergens:
+      "Contains milk (ghee), almonds, walnuts and sesame seeds. Please ask Eat.one1 about possible cross-contamination before ordering.",
+    benefits:
+      "Made with seeds, dates and nuts\nOriginal Eat.one1 catalog recipe",
+    featured: 0,
+  },
+  {
+    name: "Choco-Hazelnut Ladoo",
+    slug: "choco-hazelnut-ladoo",
+    description:
+      "Cocoa and whole-hazelnut date ladoos with premium nuts and mixed seeds.",
+    price: 94900,
+    image: "/images/products/choco-hazelnut-ladoo.png",
+    ingredients:
+      "Cashews, almonds, flax seeds, sunflower seeds, pumpkin seeds, watermelon seeds, walnuts, pistachios, sesame seeds, unsweetened cocoa powder, dates, whole hazelnuts.",
+    allergens:
+      "Contains cashews, almonds, walnuts, pistachios, hazelnuts and sesame seeds. Please ask Eat.one1 about possible cross-contamination before ordering.",
+    benefits: "Unsweetened cocoa powder\nNaturally sweetened with dates",
+    featured: 0,
+  },
+  {
+    name: "Gond-Poppy seeds Ladoo ( Post partum recommended)",
+    slug: "gond-poppy-seeds-ladoo",
+    description:
+      "A traditional gond, poppy-seed, nut and date ladoo sold under Eat.one1’s original catalog name.",
+    price: 89900,
+    image: "/images/products/gond-poppy-ladoo.png",
+    ingredients:
+      "Gond (edible gum), cashews, almonds, walnuts, pistachios, makhana (fox nuts), dates, sesame seeds, flax seeds, pumpkin seeds, watermelon seeds, poppy seeds, raisins, ghee.",
+    allergens:
+      "Contains milk (ghee), cashews, almonds, walnuts, pistachios and sesame seeds. Contains poppy seeds. Please consult a qualified clinician for postpartum dietary advice.",
+    benefits:
+      "Traditional gond and poppy-seed recipe\nMade with nuts, seeds and dates",
+    featured: 0,
+  },
+  {
+    name: "Multi Nutritional Ladoo",
+    slug: "multi-nutritional-ladoo",
+    description:
+      "A premium everyday ladoo made with mixed seeds, nuts, dates and ghee.",
+    price: 69900,
+    image: "/images/products/multi-nutrition-ladoo.png",
+    ingredients:
+      "Flax seeds, pumpkin seeds, watermelon seeds, sunflower seeds, almonds, cashews, dates, ghee.",
+    allergens:
+      "Contains milk (ghee), almonds and cashews. Please ask Eat.one1 about possible cross-contamination before ordering.",
+    benefits: "Made with premium ingredients\nMixed seeds, nuts and dates",
+    featured: 0,
+  },
+  {
+    name: "Multi Nutrition ladoo with additional dry fruits ( PCOD/ PCOS recommended)",
+    slug: "multi-nutrition-ladoo-additional-dry-fruits",
+    description:
+      "A premium mixed-seed and dry-fruit ladoo sold under Eat.one1’s original catalog name.",
+    price: 79900,
+    image: "/images/products/pcod-multi-nutrition-ladoo.png",
+    ingredients:
+      "Flax seeds, sesame seeds, pumpkin seeds, watermelon seeds, sunflower seeds, almonds, cashews, walnuts, pistachios, makhana, dates, ghee.",
+    allergens:
+      "Contains milk (ghee), almonds, cashews, walnuts, pistachios and sesame seeds. Please consult a qualified clinician for PCOD/PCOS dietary advice.",
+    benefits: "Additional dry fruits\nMade with seeds, nuts, dates and ghee",
+    featured: 0,
+  },
+  {
+    name: "Biotin Powder",
+    slug: "biotin-powder",
+    description:
+      "A finely ground seed, nut, dry-fruit and makhana blend from the Eat.one1 catalog.",
+    category: "Nuts & seeds",
+    genre: "Breakfast",
+    price: 89900,
+    image: "/images/products/biotin-powder.png",
+    ingredients:
+      "Pumpkin seeds, watermelon seeds, flax seeds, sunflower seeds, almonds, cashews, walnuts, pistachios, aliv seeds, sesame seeds, dry dates, makhana.",
+    allergens:
+      "Contains almonds, cashews, walnuts, pistachios and sesame seeds. Please ask Eat.one1 about possible cross-contamination before ordering.",
+    benefits:
+      "Finely ground seed and nut blend\nAdd only as directed by Eat.one1",
+    featured: 0,
+  },
 ];
 
 await initDB();
 for (const item of products) {
-  const p={...common,...item,mrp:item.mrp||item.price};
-  const existing=await query('SELECT id FROM products WHERE slug=?',[p.slug]);
-  const fields=['name','slug','description','category','genre','price','mrp','weight','stock','image','ingredients','allergens','nutrition','benefits','shelf_life','storage','status','featured'];
-  if(existing.length) await query(`UPDATE products SET ${fields.map(f=>`${f}=?`).join(',')} WHERE slug=?`,[...fields.map(f=>p[f]),p.slug]);
-  else await query(`INSERT INTO products(id,${fields.join(',')},created_at) VALUES(${Array(fields.length+2).fill('?').join(',')})`,[randomUUID(),...fields.map(f=>p[f]),new Date().toISOString()]);
+  const p = { ...common, ...item, mrp: item.mrp || item.price };
+  const existing = await query("SELECT id FROM products WHERE slug=?", [
+    p.slug,
+  ]);
+  const fields = [
+    "name",
+    "slug",
+    "description",
+    "category",
+    "genre",
+    "price",
+    "mrp",
+    "weight",
+    "stock",
+    "image",
+    "ingredients",
+    "allergens",
+    "nutrition",
+    "benefits",
+    "shelf_life",
+    "storage",
+    "status",
+    "featured",
+  ];
+  if (existing.length)
+    await query(
+      `UPDATE products SET ${fields.map((f) => `${f}=?`).join(",")} WHERE slug=?`,
+      [...fields.map((f) => p[f]), p.slug],
+    );
+  else
+    await query(
+      `INSERT INTO products(id,${fields.join(",")},created_at) VALUES(${Array(
+        fields.length + 2,
+      )
+        .fill("?")
+        .join(",")})`,
+      [randomUUID(), ...fields.map((f) => p[f]), new Date().toISOString()],
+    );
 }
-const [setting]=await query("SELECT value FROM settings WHERE id='store'");
-if(setting){const value=JSON.parse(setting.value);value.businessName='Eat.one1';await query("UPDATE settings SET value=? WHERE id='store'",[JSON.stringify(value)]);}
+const [setting] = await query("SELECT value FROM settings WHERE id='store'");
+if (setting) {
+  const value = JSON.parse(setting.value);
+  value.businessName = "Eat.one1";
+  await query("UPDATE settings SET value=? WHERE id='store'", [
+    JSON.stringify(value),
+  ]);
+}
 console.log(`Imported ${products.length} Eat.one1 products.`);
 await closeDB();

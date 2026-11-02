@@ -7,3 +7,6 @@ data/
 uploads/
 *.log
 test-results/
+
+.vercel
+.env*

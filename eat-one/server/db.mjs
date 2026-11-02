@@ -17,7 +17,14 @@ CREATE INDEX IF NOT EXISTS idx_sessions_expiry ON sessions(expires_at);
 `;
 export const postgres=!!process.env.DATABASE_URL;
 let pool,sqlite;
-if(postgres) pool=new pg.Pool({connectionString:process.env.DATABASE_URL,max:10,ssl:process.env.DATABASE_SSL==='false'?false:{rejectUnauthorized:true}});
+if(postgres) {
+ const ssl=process.env.DATABASE_SSL==='false'
+  ? false
+  : {rejectUnauthorized:process.env.DATABASE_SSL_REJECT_UNAUTHORIZED!=='false'};
+ const configuredMax=Number.parseInt(process.env.DATABASE_POOL_MAX||'',10);
+ const max=Number.isFinite(configuredMax)&&configuredMax>0?configuredMax:(process.env.VERCEL?'1':10);
+ pool=new pg.Pool({connectionString:process.env.DATABASE_URL,max,ssl});
+}
 else { const file=process.env.SQLITE_PATH||'data/eat-one.sqlite';fs.mkdirSync(path.dirname(file),{recursive:true});sqlite=new DatabaseSync(file);sqlite.exec('PRAGMA foreign_keys=ON; PRAGMA journal_mode=WAL; PRAGMA busy_timeout=5000;'); }
 function adapter(client){return async(sql,params=[])=>{if(postgres){let i=0;return (await client.query(sql.replace(/\?/g,()=>`$${++i}`),params)).rows;}const s=sqlite.prepare(sql);if(/^\s*(SELECT|WITH)/i.test(sql)||/RETURNING/i.test(sql))return s.all(...params);s.run(...params);return [];};}
 const rawQuery=adapter(pool);

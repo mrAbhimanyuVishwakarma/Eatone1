@@ -2,6 +2,8 @@
 
 A complete local snack storefront and admin application, with an intentionally empty product catalog. React + Vite, Express, SQLite for local use, and a PostgreSQL adapter for deployment.
 
+Ownership and account migration instructions are documented in [docs/ACCOUNT_TRANSFER_GUIDE.md](docs/ACCOUNT_TRANSFER_GUIDE.md).
+
 ## Open the running app
 
 - Store: http://localhost:3000
@@ -76,7 +78,7 @@ Reviewed https://github.com/youpi-pg/YouPI-PG at commit `405327c27d78ae9d0dccdb1
 
 ## Database & deployment
 
-SQLite at `data/eat-one.sqlite` makes localhost easy to run. It is not the proposed shared database for a scaled public store. The same application supports PostgreSQL through `DATABASE_URL` and initializes its schema at startup.
+SQLite at `data/eat-one.sqlite` makes localhost easy to run. Production uses the Eat.one1 Supabase PostgreSQL project in Mumbai (`qprmatfkdczqiziudfxp`). The schema is versioned under `supabase/migrations/`; apply future migrations with `npx supabase db push --remote`.
 
 For this project, a managed PostgreSQL service such as Supabase is a practical starting point, with a pooled server connection, a small application connection pool, backups, and a region close to customers. As checked on 2 November 2026, [Supabase Pro](https://supabase.com/pricing) starts at USD 25/month; usage and compute upgrades cost extra. The free tier is useful for evaluation but may pause after inactivity. This is not a guarantee that the cheapest plan can handle thousands of simultaneous checkouts.
 
@@ -89,10 +91,12 @@ PORT=3000
 SITE_ORIGIN=https://YOUR_DOMAIN
 DATABASE_URL=postgresql://USER:PASSWORD@HOST:PORT/DATABASE
 DATABASE_SSL=true
+DATABASE_SSL_REJECT_UNAUTHORIZED=true
+DATABASE_POOL_MAX=1
 PAYMENTS_MODE=razorpay
 ```
 
-`DATABASE_SSL=true` requires a trusted TLS certificate. Use `DATABASE_SSL=false` only for a private/local development database. The app refuses production startup with SQLite, test payments, or a non-HTTPS site origin. Complete payment variables separately.
+`DATABASE_SSL=true` keeps the database connection encrypted. Certificate-chain validation is enabled by default; the deployed Supabase pooler currently requires `DATABASE_SSL_REJECT_UNAUTHORIZED=false` while retaining TLS encryption. `DATABASE_POOL_MAX=1` prevents each serverless instance from opening an excessive number of connections. The app refuses production startup with SQLite, test payments, or a non-HTTPS site origin. Complete payment variables separately.
 
 ```sh
 npm ci
@@ -103,7 +107,7 @@ npm start
 
 Deploy the Node service behind HTTPS with the correct `SITE_ORIGIN`. Set `TRUST_PROXY_HOPS=1` only when there is exactly one trusted reverse proxy. If your platform has a different topology, configure that value for its actual trusted proxy chain; never expose the origin server around that proxy. Secure cookies require HTTPS.
 
-Persist `/app/uploads` with a volume for one instance. For multiple replicas, replace local uploads with object storage or a shared persistent filesystem; do not run replicas with independent upload folders. Use a pooled PostgreSQL URL with the provider's documented TLS configuration. Production PostgreSQL and live payment integrations require separate deployment validation: only the SQLite path has been exercised here.
+Vercel deployments require `BLOB_READ_WRITE_TOKEN` before new admin image uploads can persist; bundled product images continue to work without it. Use a pooled PostgreSQL URL with the provider's documented TLS configuration. The production PostgreSQL schema, product import, live catalog API, and protected administrator login have been exercised end to end. Live Razorpay payments still require separate merchant credentials and webhook validation.
 
 Before accepting real purchases: finish business/FSSAI/tax details, confirm product labels and nutrition, define actual delivery coverage and service levels, finalize policies, set up backups and restoration, configure monitoring and payment reconciliation, test provider webhooks and refund operations, and load-test the deployed application with realistic browsing/checkout traffic. Capacity depends on infrastructure, query load, provider limits and concurrent checkout behaviour.
 
